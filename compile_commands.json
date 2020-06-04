@@ -1,0 +1,123 @@
+[
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-Ilib/include",
+            "-Ilib/src/",
+            "lib/src/parser.c"
+        ],
+        "directory": "/home/mik/Documenti/tree-sitter",
+        "file": "lib/src/parser.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-Ilib/include",
+            "-Ilib/src/",
+            "lib/src/lexer.c"
+        ],
+        "directory": "/home/mik/Documenti/tree-sitter",
+        "file": "lib/src/lexer.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-Ilib/include",
+            "-Ilib/src/",
+            "lib/src/subtree.c"
+        ],
+        "directory": "/home/mik/Documenti/tree-sitter",
+        "file": "lib/src/subtree.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-Ilib/include",
+            "-Ilib/src/",
+            "lib/src/node.c"
+        ],
+        "directory": "/home/mik/Documenti/tree-sitter",
+        "file": "lib/src/node.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-Ilib/include",
+            "-Ilib/src/",
+            "lib/src/lib.c"
+        ],
+        "directory": "/home/mik/Documenti/tree-sitter",
+        "file": "lib/src/lib.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-Ilib/include",
+            "-Ilib/src/",
+            "lib/src/tree_cursor.c"
+        ],
+        "directory": "/home/mik/Documenti/tree-sitter",
+        "file": "lib/src/tree_cursor.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-Ilib/include",
+            "-Ilib/src/",
+            "lib/src/get_changed_ranges.c"
+        ],
+        "directory": "/home/mik/Documenti/tree-sitter",
+        "file": "lib/src/get_changed_ranges.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-Ilib/include",
+            "-Ilib/src/",
+            "lib/src/language.c"
+        ],
+        "directory": "/home/mik/Documenti/tree-sitter",
+        "file": "lib/src/language.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-Ilib/include",
+            "-Ilib/src/",
+            "lib/src/tree.c"
+        ],
+        "directory": "/home/mik/Documenti/tree-sitter",
+        "file": "lib/src/tree.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-Ilib/include",
+            "-Ilib/src/",
+            "lib/src/query.c"
+        ],
+        "directory": "/home/mik/Documenti/tree-sitter",
+        "file": "lib/src/query.c"
+    },
+    {
+        "arguments": [
+            "cc",
+            "-c",
+            "-Ilib/include",
+            "-Ilib/src/",
+            "lib/src/stack.c"
+        ],
+        "directory": "/home/mik/Documenti/tree-sitter",
+        "file": "lib/src/stack.c"
+    }
+]
