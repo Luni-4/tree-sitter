@@ -1060,37 +1060,47 @@ unsafe extern "C" fn summarize_stack_callback(
     };
     StackActionNone as os::raw::c_int as StackAction
 }
+
 // Compute a summary of all the parse states near the top of the given
 // version of the stack and store the summary for later retrieval.
 #[no_mangle]
 pub(crate) unsafe extern "C" fn ts_stack_record_summary(
     mut self_0: *mut Stack,
     mut version: StackVersion,
-    mut max_depth: os::raw::c_uint,
+    mut max_depth: u32,
 ) {
-    let mut session = SummarizeStackSession {
-        summary: ts_malloc(::std::mem::size_of::<StackSummary>()) as *mut StackSummary,
-        max_depth,
+    let mut session: SummarizeStackSession = {
+        let mut init = SummarizeStackSession {
+            summary: ts_malloc(::std::mem::size_of::<StackSummary>()) as *mut StackSummary,
+            max_depth: max_depth,
+        };
+        init
     };
-    (*session.summary).size = 0 as os::raw::c_int as u32;
-    (*session.summary).capacity = 0 as os::raw::c_int as u32;
-    (*session.summary).contents = std::ptr::null_mut::<StackSummaryEntry>();
+    (*session.summary).size = 0;
+    (*session.summary).capacity = 0;
+    (*session.summary).contents = 0 as *mut StackSummaryEntry;
     stack__iter(
         self_0,
         version,
         Some(
             summarize_stack_callback
                 as unsafe extern "C" fn(
-                    _: *mut ffi::c_void,
+                    _: *mut os::raw::c_void,
                     _: *const StackIterator,
                 ) -> StackAction,
         ),
-        &mut session as *mut SummarizeStackSession as *mut ffi::c_void,
-        -(1 as os::raw::c_int),
+        &mut session as *mut SummarizeStackSession as *mut os::raw::c_void,
+        -(1),
     );
-    let fresh9 = &mut (*(*self_0).heads.contents.offset(version as isize)).summary;
-    *fresh9 = session.summary;
+    let mut head: *mut StackHead =
+        &mut *(*self_0).heads.contents.offset(version as isize) as *mut StackHead;
+    if !(*head).summary.is_null() {
+        array__delete((*head).summary as *mut VoidArray);
+        ts_free((*head).summary as *mut os::raw::c_void);
+    }
+    (*head).summary = session.summary;
 }
+
 // Retrieve a summary of all the parse states near the top of the
 // given version of the stack.
 #[no_mangle]
@@ -1431,6 +1441,9 @@ where
                         , i,
                     ts_stack_node_count_since_error(self_0, i),
                     ts_stack_error_cost(self_0, i)).unwrap();
+            if !(*head).summary.is_null() {
+                write!(f, "\nsummary_size: {}", (*(*head).summary).size).unwrap();
+            }
             if !(*head).last_external_token.ptr.is_null() {
                 let mut state: *const ExternalScannerState = &(*(*head).last_external_token.ptr)
                     .c2rust_unnamed
