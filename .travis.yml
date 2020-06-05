@@ -46,6 +46,7 @@ script:
 branches:
   only:
   - master
+  - rust-core
   - /\d+\.\d+\.\d+/
 
 before_deploy:
