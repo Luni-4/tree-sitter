@@ -2088,11 +2088,8 @@ unsafe extern "C" fn ts_parser__advance(
             if (*self_0).operation_count == 0 as os::raw::c_int as os::raw::c_uint
                 && (!(*self_0).cancellation_flag.is_null()
                     && atomic_load((*self_0).cancellation_flag) != 0
-                    || (*self_0)
-                        .end_instant
-                        .as_ref()
-                        .map(|end_instant| &Instant::now() > end_instant)
-                        .unwrap_or(false))
+                    || (*self_0).end_instant.is_some()
+                        && Instant::now() > (*self_0).end_instant.unwrap())
             {
                 ts_subtree_release(&mut (*self_0).tree_pool, lookahead);
                 return 0 as os::raw::c_int != 0;
